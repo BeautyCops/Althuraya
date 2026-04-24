@@ -32,16 +32,17 @@ jobs:
         run: npm ci
 
       - name: Build (static + prerender)
+        shell: bash
         env:
-          # نطاق مخصص (مثل althuraya.store): اترك / أو عيّن متغير الريبو: VITE_BASE
-          VITE_BASE: ${{ vars.VITE_BASE }}
-          VITE_CONTACT_API_URL: ${{ vars.VITE_CONTACT_API_URL }}
-        run: npm run build:github-pages
+          GH_PAGES: "1"
+        run: npm run build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: dist/client
+          # نفس محتوى البناء (يشمل .assetsignore وغيره من النقاط)
+          include-hidden-files: true
 
   deploy:
     needs: build

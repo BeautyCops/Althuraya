@@ -19,8 +19,8 @@ npm run dev
 ## نشر — GitHub Pages (الوضع الافتراضي لدينا)
 
 1. في المستودع على GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-2. بعد أول `push` إلى `main`، سيعمل سير العمل [`.github/workflows/deploy-github-pages.yml`](.github/workflows/deploy-github-pages.yml) ويُنشر محتوى `dist/client` تلقائياً.
-3. **نطاق مخصص** (مثل `althuraya.store`): أضفيه من **Settings → Pages → Custom domain**، وضع `VITE_BASE` في **Settings → Secrets and variables → Actions → Repository variables** = `/` (أو اتركه بدون متغير؛ الافتراضي `/`).
+2. بعد أول `push` إلى `main`، سيعمل سير العمل [`.github/workflows/deploy-github-pages.yml`](.github/workflows/deploy-github-pages.yml) — يشغّل `GH_PAGES=1 npm run build` (على Linux، مباشرة دون `cross-env`).
+3. **نطاق مخصص** (مثل `althuraya.store`): أضفيه من **Settings → Pages → Custom domain**؛ `VITE_BASE` الافتراضي في البناء هو `/`. إن احتجت مسار ريبو (`/Althuraya/`)، عدّلي سير العمل محلياً أو أضيفي `env` لاحقاً.
 
 إذا عرضت الصفحة على **عنوان GitHub الافتراضي** `https://USER.github.io/REPO/`: عيّن متغير الريبو `VITE_BASE` إلى `/REPO/` (مثال: `/Althuraya/`) بشرط تطابق حروف اسم المستودع.
 
