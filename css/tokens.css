@@ -1,0 +1,22 @@
+/* رموز التصميم — عيّني الألوان والمسافات هنا لتحديث الهوية دفعة واحدة */
+:root {
+  --c-void: #07030f;
+  --c-deep: #0f071c;
+  --c-surface: rgba(32, 18, 58, 0.55);
+  --c-surface-2: rgba(22, 12, 40, 0.85);
+  --c-stroke: rgba(168, 85, 247, 0.28);
+  --c-stroke-soft: rgba(255, 255, 255, 0.08);
+  --c-text: #f6f0ff;
+  --c-muted: #a89cc4;
+  --c-accent: #7c3aed;
+  --c-accent-2: #c026d3;
+  --c-glow: rgba(124, 58, 237, 0.35);
+  --font: "Helvetica World", "IBM Plex Sans Arabic", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+  --font-heading: "XB Shafigh", "Noto Kufi Arabic", "Geeza Pro", "Tahoma", serif;
+  --radius: 16px;
+  --radius-pill: 999px;
+  --header-h: 4.25rem;
+  --content-max: 68rem;
+  --space: 1rem;
+  --easing: cubic-bezier(0.4, 0, 0.2, 1);
+}

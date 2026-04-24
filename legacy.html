@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f071c" />
+    <meta
+      name="description"
+      content="الثريا — موقع دعوات Althuraya. دعوات رقمية فاخرة بذوقٍ يلتقي فيه الضيافة بالرقميّة."
+    />
+    <title>القالب النصي (بدون صور) | Althuraya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <div class="page-atmo" aria-hidden="true"></div>
+    <a class="skip" href="#main">تخطي إلى المحتوى</a>
+
+    <header class="site-header" id="top">
+      <div class="header-inner">
+        <a class="brand" href="#top" id="logo">
+          <span class="brand__ar">الثريا</span>
+          <span class="brand__en">موقع الدعوات <em>Althuraya</em></span>
+        </a>
+        <button
+          type="button"
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="nav-toggle__ic" aria-hidden="true"></span>
+          <span class="visually-hidden">القائمة</span>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="التنقّل الرئيسي">
+          <a class="nav__link" href="#الرئيسية">الرئيسية</a>
+          <a class="nav__link" href="#من-نحن">من نحن؟</a>
+          <a class="nav__link" href="#المشكلة">المشكلة</a>
+          <a class="nav__link" href="#الحل">الحل</a>
+          <a class="nav__link" href="#تواصل">تواصل</a>
+          <a
+            class="nav__link nav__link--cta"
+            href="mailto:hello@althuraya.example?subject=طلب%20دعوة%20—%20Althuraya"
+            >اطلبي دعوتك</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section
+        class="section hero"
+        id="الرئيسية"
+        data-section="hero"
+        aria-labelledby="hero-h"
+      >
+        <p class="section__kicker">دعوات رقمية · RSVP</p>
+        <h1 class="hero__title" id="hero-h">
+          موقع مخصص لدعواتك
+          <strong>Althuraya — الثريا</strong>
+        </h1>
+        <p class="hero__lead">
+          دعوة واحدة بروابط واضحة، وصور تحمل ذوقك، وردّ ضيوفك من مكانٍ
+          واحد. موقع <strong>ثابت وقابل للتوسع</strong> — تعديل المحتوى من
+          ملف <code>index.html</code> وسمات الألوان من
+          <code>css/tokens.css</code>.
+        </p>
+        <a class="btn btn--primary" href="#من-نحن">تعرّفي على الثريا</a>
+        <a class="btn btn--ghost" href="#تواصل">تواصلي</a>
+      </section>
+
+      <div class="wave" aria-hidden="true">
+        <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+          <path
+            d="M0,20 Q300,0 600,20 T1200,20 L1200,40 L0,40 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+
+      <section
+        class="section split bg-band"
+        id="من-نحن"
+        data-section="about"
+        aria-labelledby="عن-العنوان"
+      >
+        <div>
+          <h2 class="section__title" id="عن-العنوان">من نحن؟</h2>
+          <p class="section__intro">
+            <strong>الثريا</strong> نوجّه لكِ تجربة دعوة تليق بمناسبتك: من لحظة
+            الإعلان حتى تذكير الضيوف. نركّز على الوضوح، والأناقة، وسهولة
+            <abbr title="Répondez s'il vous plaît">RSVP</abbr> حتى لا تضيع
+            الردود بين المحادثات.
+          </p>
+          <p class="section__intro" style="margin-bottom: 0">
+            تقدرين توسعين لاحقاً: صفحات جديدة (مثلاً
+            <code>pages/</code> أو نظام بسيط) مع الإبقاء على نفس الهوية
+            عبر <code>css/tokens.css</code>.
+          </p>
+        </div>
+        <div class="phone" aria-hidden="true">
+          <div class="phone__inner">
+            <div class="phone__notch"></div>
+            <span class="rsvp-badge">RSVP</span>
+            <p class="phone__note">تأكيد الحضور بخطوة</p>
+          </div>
+          <p class="phone__caption">مثال بصري — يعاد برمجتُه بالكامل هنا</p>
+        </div>
+      </section>
+
+      <section
+        class="section section--tight"
+        id="المشكلة"
+        data-section="problem"
+        aria-labelledby="مش-العنوان"
+      >
+        <h2 class="section__title" id="مش-العنوان">المشكلة</h2>
+        <p class="section__intro">ما الذي يزعج كثيراً من فريق المناسبة؟</p>
+        <ul class="list-cards">
+          <li>
+            <span class="list-cards__n">1</span>
+            <span>الردود مبعثرة بين واتساب وقروبات لا تُحصى.</span>
+          </li>
+          <li>
+            <span class="list-cards__n">2</span>
+            <span>تنتشر صورة الدعوة بجودةٍ تتراجع عند إعادة الإرسال.</span>
+          </li>
+          <li>
+            <span class="list-cards__n">3</span>
+            <span>صعوبة تحديث التفصيل (الوقت/المكان) دفعةً واحدة للجميع.</span>
+          </li>
+          <li>
+            <span class="list-cards__n">4</span>
+            <span>ضعف لمسة هويةٍ موحّدة تربط «الدعوة» بباقي الاتصالات.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section
+        class="section"
+        id="الحل"
+        data-section="solution"
+        aria-labelledby="حل-العنوان"
+      >
+        <h2 class="section__title" id="حل-العنوان">ماذا تقدّم الثريا؟</h2>
+        <p class="section__intro" style="max-width: 42ch">
+          بنية قابلة للتوسع: تعديل النصوص أدناه، أو تكرار
+          <code>card</code> لعناصر جديدة.
+        </p>
+        <div class="grid-3">
+          <article class="card">
+            <h3>صفحة دعوة</h3>
+            <p>رابط واحد — يعبّر عن روح المناسبة ويُشارك بسهولة.</p>
+          </article>
+          <article class="card">
+            <h3>تجربة رد</h3>
+            <p>توجيه واضح لـ RSVP والتفاصيل دون تشتيت.</p>
+          </article>
+          <article class="card">
+            <h3>هوية متناسقة</h3>
+            <p>ألوان وطباعة من <code>tokens</code> تبقى معك بكل توسيع.</p>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="section"
+        id="تواصل"
+        data-section="contact"
+        aria-labelledby="cta-h"
+      >
+        <div class="cta-box">
+          <h2
+            class="section__title"
+            id="cta-h"
+            style="text-align: center; margin-top: 0"
+          >
+            جاهزون لخطوتك التالية؟
+          </h2>
+          <p>
+            اكتبيلنا بمناسبتك وموعدك، ونرجع لكِ بصياغة تلائم
+            <strong>الثريا</strong>.
+          </p>
+          <a
+            class="btn btn--primary"
+            href="mailto:hello@althuraya.example?subject=استفسار%20—%20Althuraya"
+            >راسلنا</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="foot">
+      <div class="footer-inner">
+        <p
+          class="footer-copy"
+          style="margin-bottom: 0.6rem; color: var(--c-muted)"
+        >
+          الثريا — دعوات بذوقٍ يلتقي فيه الضيافة بالرقميّة
+        </p>
+        <div class="footer-row">
+          <a href="#الرئيسية">الرئيسية</a>
+          <span class="footer-dot">·</span>
+          <a href="#من-نحن">من نحن؟</a>
+          <span class="footer-dot">·</span>
+          <a href="mailto:hello@althuraya.example">بريد</a>
+        </div>
+        <div class="footer-social">
+          <a
+            class="soc"
+            href="https://instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="إنستغرام"
+            aria-label="إنستغرام"
+            >in</a
+          >
+          <a
+            class="soc"
+            href="https://x.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="X"
+            aria-label="X"
+            >X</a
+          >
+          <a
+            class="soc"
+            href="https://www.tiktok.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="تيك توك"
+            aria-label="تيك توك"
+            >TT</a
+          >
+        </div>
+        <p class="footer-copy">
+          © <span data-year></span> <strong>Althuraya</strong> — الثريا
+          للدعوات. الموقع مبني كصفحات ثابتة (HTML/CSS) قابلة لإضافة صفحات
+          ومجلدات دون الاعتماد على Canva.
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/site.js" defer></script>
+  </body>
+</html>

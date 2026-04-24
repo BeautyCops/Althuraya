@@ -1,0 +1,21 @@
+# أسرار Canva
+canva-designs/.env
+canva-designs/tokens.json
+canva-designs/designs.json
+canva-designs/*.html
+canva-designs/thumbnails/
+canva-designs/node_modules/
+**/.env
+
+# بناءة وتبعيات
+node_modules/
+dist/
+.wrangler/
+.vite/
+*.local
+.dev.vars
+
+# نظام
+.DS_Store
+Thumbs.db
+*.log

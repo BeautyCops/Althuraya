@@ -1,0 +1,6 @@
+.env
+tokens.json
+designs.json
+designs.html
+thumbnails/
+node_modules/
