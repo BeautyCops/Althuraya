@@ -1,1 +1,4 @@
 CONTACT_WEBHOOK_URL=
+
+# اختياري لبناء واجهة فقط (GitHub Pages): رابط كامل لـ POST نموذج الاتصال إن وُجد خادم منفصل
+# VITE_CONTACT_API_URL=

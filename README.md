@@ -9,38 +9,39 @@ npm install
 npm run dev
 ```
 
-## بناء للإنتاج
+## بناء
+
+| الأمر | النتيجة |
+|--------|---------|
+| `npm run build` | إنتاج عادي: أصول + **Cloudflare Worker** (`dist/client` + `dist/server`) |
+| `npm run build:github-pages` | **ملفات ثابتة** + prerender — مناسب لـ **GitHub Pages** (بدون Worker) |
+
+## نشر — GitHub Pages (الوضع الافتراضي لدينا)
+
+1. في المستودع على GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. بعد أول `push` إلى `main`، سيعمل سير العمل [`.github/workflows/deploy-github-pages.yml`](.github/workflows/deploy-github-pages.yml) ويُنشر محتوى `dist/client` تلقائياً.
+3. **نطاق مخصص** (مثل `althuraya.store`): أضفيه من **Settings → Pages → Custom domain**، وضع `VITE_BASE` في **Settings → Secrets and variables → Actions → Repository variables** = `/` (أو اتركه بدون متغير؛ الافتراضي `/`).
+
+إذا عرضت الصفحة على **عنوان GitHub الافتراضي** `https://USER.github.io/REPO/`: عيّن متغير الريبو `VITE_BASE` إلى `/REPO/` (مثال: `/Althuraya/`) بشرط تطابق حروف اسم المستودع.
+
+### نموذج الاتصال على Pages
+
+GitHub Pages **لا يشغّل** `/api/contact`. لإيصال النموذج لاحقاً:
+
+- عرّف متغير الريبو **`VITE_CONTACT_API_URL`** (رابط POST كامل لنفس الـ API على خادم آخر مثل Cloudflare Worker)، **أو**
+- اترك الحقل وربطي النموذج لاحقاً.
+
+## نشر اختياري — Cloudflare Worker
+
+ممنوح إن رغبتِ في خادم وواجهة معاً من نفس البناء الافتراضي:
 
 ```bash
 npm run build
+npm run deploy:cloudflare
 ```
 
-المخرجات: `dist/client` (الأصول) + `dist/server` (Worker وإعداد `wrangler`).
-
-## نشر الموقع على النطاق (مهم)
-
-إذا رفعتَ **ملفات المشروع من الجذر كما هي** (أو `index.html` قديمًا) إلى استضافة تعرض **الصفحة الافتراضية** من ملف `index.html`، سيظهر **النسخة القديمة** (صفحة HTML ثابتة).
-
-- النسخة الحالية **ليست** مجلد HTML ثابت — هي تطبيق يعمل على **Cloudflare Workers** (أو بيئة تدعم الـ worker المُولَّد).
-- **لا تستخدم** `legacy-static/` كجذر للنطاق الإنتاجي — أرشيف فقط.
-
-### نشر بـ Cloudflare (موصى به)
-
-1. ثبّت [Wrangler](https://developers.cloudflare.com/workers/wrangler/install-and-update/) إن لزم: `npm install` يضم `wrangler` كاعتماد تطوير.
-2. سجّل دخولك: `npx wrangler login`
-3. من جذر المشروع:
-
-   ```bash
-   npm run build
-   npm run deploy
-   ```
-
-4. اربط النطاق `althuraya.store` بالـ Worker/الحساب في لوحة **Cloudflare** (DNS أو Routes حسب إعدادك).
-
-### متغيرات بيئة (مثل نموذج الاتصال)
-
- انسخ `.dev.vars.example` إلى `.dev.vars` للتجربة محليًا. في Cloudflare عرّف الأسرار من لوحة **Workers** → **Settings** → **Variables** (مثل `CONTACT_WEBHOOK_URL` إن وُجد).
+(يتطلب `npx wrangler login` وضبط المشروع في Cloudflare.)
 
 ---
 
-النسخة الـ HTML القديمة (غير المستخدمة للنشر): [legacy-static/README.md](legacy-static/README.md)
+النسخة الـ HTML القديمة (مؤرشفة): [legacy-static/README.md](legacy-static/README.md)

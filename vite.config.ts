@@ -6,4 +6,21 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-export default defineConfig();
+const ghPages = process.env.GH_PAGES === "true" || process.env.GH_PAGES === "1";
+
+export default defineConfig({
+  // GitHub Pages: static HTML فقط — بدون Cloudflare Worker
+  cloudflare: ghPages ? false : undefined,
+  tanstackStart: ghPages
+    ? {
+        prerender: {
+          enabled: true,
+          crawlLinks: true,
+          failOnError: true,
+        },
+      }
+    : undefined,
+  vite: {
+    base: process.env.VITE_BASE?.trim() || "/",
+  },
+});

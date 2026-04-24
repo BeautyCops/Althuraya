@@ -20,8 +20,11 @@ export function Contact() {
     setIsSubmitting(true);
     setFeedback(null);
 
+    const contactUrl =
+      import.meta.env.VITE_CONTACT_API_URL?.trim() || "/api/contact";
+
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(contactUrl, {
         method: "POST",
         headers: {
           "content-type": "application/json",
