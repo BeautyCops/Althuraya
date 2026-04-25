@@ -25,24 +25,39 @@ jobs:
       - name: Node
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "20"
           cache: npm
 
       - name: Install
-        run: npm ci
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Workspace: $PWD"
+          ls -la
+          if [ ! -f package-lock.json ]; then
+            echo "::error::package-lock.json is not in the repo root. It must be committed (do not .gitignore it). On your machine: npm install && git add package-lock.json && git commit -m 'chore: add package lock' && git push"
+            exit 1
+          fi
+          npm ci --no-audit
 
       - name: Build (static + prerender)
         shell: bash
         env:
           GH_PAGES: "1"
+          NODE_OPTIONS: --max-old-space-size=6144
         run: npm run build
+
+      # v4 يرمّن الأرشيف دون الملفات النقطية — ننسخ .assetsignore باسم غير نقطي إن وُجد
+      - name: Pages artifact inclusions
+        run: |
+          if [ -f dist/client/.assetsignore ] && [ ! -f dist/client/_assetsignore ]; then
+            cp dist/client/.assetsignore dist/client/_assetsignore
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist/client
-          # نفس محتوى البناء (يشمل .assetsignore وغيره من النقاط)
-          include-hidden-files: true
 
   deploy:
     needs: build

@@ -15,6 +15,8 @@ export default defineConfig({
     ? {
         prerender: {
           enabled: true,
+          // روابط الـ # تُسجّل أحياناً في الزحف وقد تفشل على مُنفّذات CI
+          filter: (page) => !String(page.path).includes("#"),
           crawlLinks: true,
           failOnError: true,
         },
