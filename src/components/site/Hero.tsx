@@ -9,14 +9,13 @@ export function Hero() {
           <div className="w-full text-center order-1 lg:order-none lg:col-span-7 lg:row-span-2 max-w-3xl mx-auto lg:mx-0 lg:text-right lg:pr-3 xl:pr-4 lg:self-stretch flex flex-col justify-between">
             <div className="mb-6 sm:mb-6 lg:mb-0">
               <h1
-                className="text-gradient text-[2.5rem] leading-[1.1] sm:text-6xl md:text-7xl lg:text-7xl font-bold sm:leading-[1.05] mb-4 sm:mb-5 animate-fade-up"
+                className="text-gradient font-bold leading-[1.1] sm:leading-[1.05] mb-4 sm:mb-5 animate-fade-up whitespace-nowrap text-[clamp(1.35rem,5.2vw,3.75rem)] sm:text-6xl md:text-7xl lg:text-7xl"
                 style={{
                   fontFamily: "var(--font-serif-arabic)",
                   animationDelay: "0.1s",
                 }}
               >
-                دعواتك تستحق
-                <br />
+                دعواتك تستحق{" "}
                 <span className="text-gradient-lavender">لمسة فاخرة</span>
               </h1>
 
