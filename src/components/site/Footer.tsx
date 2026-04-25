@@ -95,7 +95,7 @@ export function Footer() {
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                © {new Date().getFullYear()} شركة الثريا 440 LLC — جميع الحقوق
+                © 2025 شركة الثريا 440 LLC — جميع الحقوق
                 محفوظة
               </div>
               <div className="flex gap-5">
