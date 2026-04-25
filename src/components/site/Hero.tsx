@@ -7,7 +7,7 @@ export function Hero() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">
         <div className="grid items-start gap-6 sm:gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-4">
           <div className="w-full text-center order-1 lg:order-none lg:col-span-7 lg:row-span-2 max-w-3xl mx-auto lg:mx-0 lg:text-right lg:pr-3 xl:pr-4 lg:self-stretch flex flex-col justify-between">
-            <div className="mb-6 sm:mb-6 lg:mb-0">
+            <div className="mb-6 sm:mb-6 lg:mb-0 mt-8 sm:mt-10 lg:mt-14">
               <h1
                 className="text-gradient font-bold leading-[1.1] sm:leading-[1.05] mb-4 sm:mb-5 animate-fade-up whitespace-nowrap text-[clamp(1.35rem,5.2vw,3.75rem)] sm:text-6xl md:text-7xl lg:text-7xl"
                 style={{
@@ -54,8 +54,8 @@ export function Hero() {
                 style={{ animationDelay: "0.4s" }}
               >
                 {[
-                  "+٥٠٠ فعالية ناجحة",
-                  "+١٢٠ ألف ضيف",
+                  "٥٠ مناسبة",
+                  "١٢٠٠ ضيف",
                   "تقييم ٤.٩ ★",
                   "دعم ٢٤/٧",
                 ].map((t) => (
