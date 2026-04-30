@@ -6,6 +6,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
+import favicon from "../assets/chandelier.png?url";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -44,6 +45,8 @@ export const Route = createRootRoute({
       { name: "twitter:card", content: "summary" },
     ],
     links: [
+      { rel: "icon", href: favicon, type: "image/png" },
+      { rel: "apple-touch-icon", href: favicon },
       {
         rel: "stylesheet",
         href: appCss,
