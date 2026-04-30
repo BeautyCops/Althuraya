@@ -1,0 +1,11 @@
+---
+description: بعد التعديلات على الكود، التزم ثم ادفع إلى origin/main تلقائياً
+alwaysApply: true
+---
+
+# نشر التغييرات على GitHub
+
+- بعد إنهاء أي مهمة تعدّل ملفات المشروع (`src/`، الإعدادات، إلخ): نفِّذ `git status`، ثم `git add` للملفات ذات الصلة، ثم `git commit` برسالة واضحة، ثم `git push origin main`.
+- لا تؤجل الدفع إلى ما بعد المحادثة ما لم يمنع التشغيل (فشل مصادقة، أو طلب المستخدم الصريح بعدم الدفع).
+- النشر إلى الويب: الدفع إلى `main` يشغّل GitHub Actions ([`.github/workflows/deploy-github-pages.yml`](.github/workflows/deploy-github-pages.yml)) لبناء GitHub Pages (`GH_PAGES=1 npm run build`). لا يُفترض وجود `CLOUDFLARE_API_TOKEN` محلياً؛ نشر Cloudflare يدويًا فقط إذا جهّز المستخدم الرمز في البيئة (`npm run deploy:cloudflare`).
+- لا تُسجَّل أسرار في Git (`.env`، `.dev.vars`).
