@@ -1,5 +1,10 @@
 {
   "$schema": "https://schema.railpack.com",
+  "steps": {
+    "install": {
+      "commands": ["npm install --no-audit --no-fund --include=dev"]
+    }
+  },
   "deploy": {
     "startCommand": "node ./node_modules/vite/bin/vite.js preview --host 0.0.0.0 --port $PORT"
   }
