@@ -1,0 +1,15 @@
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund
+
+COPY . .
+RUN npm run build
+
+ENV NODE_ENV=production
+
+EXPOSE 4173
+
+CMD ["sh", "-c", "exec node ./node_modules/vite/bin/vite.js preview --host 0.0.0.0 --port \"${PORT:-4173}\""]
