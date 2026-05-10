@@ -6,12 +6,17 @@ import {
 } from "node:crypto";
 
 const SCRYPT_PARAMS = { N: 2 ** 16, r: 8, p: 1 } as const;
+/** افتراض Node (~32MB) أقل من ذاكرة scrypt لهذه المعاملات؛ بدونه يفشل التشفير في الإنتاج (Railway: memory limit exceeded). */
+const SCRYPT_MAXMEM = 128 * 1024 * 1024;
 const KEYLEN = 64;
 
 /** تنسيق مستقر للتوسع: v1$saltHex$hashHex */
 export function hashPassword(plain: string): string {
   const salt = randomBytes(16);
-  const hash = scryptSync(plain, salt, KEYLEN, SCRYPT_PARAMS);
+  const hash = scryptSync(plain, salt, KEYLEN, {
+    ...SCRYPT_PARAMS,
+    maxmem: SCRYPT_MAXMEM,
+  });
   return `v1$${salt.toString("hex")}$${hash.toString("hex")}`;
 }
 
@@ -22,7 +27,10 @@ export function verifyPassword(plain: string, stored: string): boolean {
     const salt = Buffer.from(parts[1], "hex");
     const expected = Buffer.from(parts[2], "hex");
     if (expected.length !== KEYLEN) return false;
-    const hash = scryptSync(plain, salt, KEYLEN, SCRYPT_PARAMS);
+    const hash = scryptSync(plain, salt, KEYLEN, {
+      ...SCRYPT_PARAMS,
+      maxmem: SCRYPT_MAXMEM,
+    });
     return timingSafeEqual(hash, expected);
   } catch {
     return false;
