@@ -14,17 +14,19 @@ RUN npm ci --no-audit --no-fund
 COPY . .
 
 RUN npm run build
+RUN rm -rf node_modules/.vite node_modules/.cache 2>/dev/null || true
 RUN test -f dist/server/server.js
 RUN ln -sf server.js dist/server/index.js
 
-# --- وقت التشغيل: بدون toolchain البناء ---
+# وقت التشغيل: لا تستخدم npm ci --omit=dev هنا؛ خادم TanStack/Nitro قد يحتاج
+# حزمًا موجودة وقت البناء ولا توجد كلها ضمن الطبقة المدمجة ⇒ العملية تنهار بصمت قبل الاستماع
+# وفشل healthcheck على Railway (503 / service unavailable).
 FROM node:22-bookworm-slim AS runner
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev --no-audit --no-fund
-
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 
 ENV NODE_ENV=production
@@ -34,4 +36,4 @@ ENV PORT=3000
 
 EXPOSE 3000
 
-CMD ["node", "dist/server/server.js"]
+CMD ["node", "--unhandled-rejections=strict", "dist/server/server.js"]
