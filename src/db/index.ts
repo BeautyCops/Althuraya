@@ -2,6 +2,7 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
 import * as schema from "./schema";
+import { getPostgresJsClientOptions } from "@/lib/server/pg-options";
 
 let client: ReturnType<typeof postgres> | null = null;
 let instance: ReturnType<typeof drizzle<typeof schema>> | null = null;
@@ -14,7 +15,7 @@ export function getDb() {
     );
   }
   if (!instance) {
-    client = postgres(url, { max: 10, idle_timeout: 20, connect_timeout: 10 });
+    client = postgres(url, getPostgresJsClientOptions(10));
     instance = drizzle(client, { schema });
   }
   return instance;
