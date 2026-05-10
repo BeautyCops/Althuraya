@@ -14,12 +14,11 @@ export function postgresHostnameFromDatabaseUrl(databaseUrl: string): string | n
   }
 }
 
-/** شبكة Postgres داخلية غالبًا بدون TLS (مثل Railway private networking). */
+/** Postgres على شبكة Railway الخاصة بدون TLS. لا تستخدم نمط "*.internal" العام لتجنّب أخطاء عند خوادم تتطلّب TLS. */
 function isLikelyPlaintextPgHost(hostname: string): boolean {
   const h = hostname.toLowerCase();
   return (
     h.endsWith(".railway.internal") ||
-    h.endsWith(".internal") ||
     h === "localhost" ||
     h === "127.0.0.1"
   );

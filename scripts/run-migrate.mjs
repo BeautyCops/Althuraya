@@ -20,7 +20,6 @@ function isLikelyPlaintextPgHost(hostname) {
   const h = hostname.toLowerCase();
   return (
     h.endsWith(".railway.internal") ||
-    h.endsWith(".internal") ||
     h === "localhost" ||
     h === "127.0.0.1"
   );
@@ -43,6 +42,13 @@ function postgresClientOpts(max, databaseUrl) {
 }
 
 const url = process.env.DATABASE_URL?.trim();
+if (process.env.SKIP_DB_MIGRATE_ON_BOOT === "1") {
+  console.warn(
+    "[migrate] SKIP_DB_MIGRATE_ON_BOOT=1 — لا تستخدمين هذا في الإنتاج إلا للتشخيص القصير.",
+  );
+  process.exit(0);
+}
+
 if (url) {
   console.log("[migrate]", {
     NODE_ENV: process.env.NODE_ENV,
@@ -64,8 +70,29 @@ if (!url) {
 const client = postgres(url, postgresClientOpts(1, url));
 const db = drizzle(client);
 
+const migrateTimeoutMs = Number(
+  process.env.MIGRATE_BOOT_TIMEOUT_MS ?? 120000,
+);
+
+function raceMigrate() {
+  return Promise.race([
+    migrate(db, { migrationsFolder: "./drizzle" }),
+    new Promise((_, reject) =>
+      setTimeout(() => {
+        reject(
+          new Error(
+            `[migrate] تجاوزت المهمة ${migrateTimeoutMs}ms — راجعي DATABASE_URL أو حددي MIGRATE_BOOT_TIMEOUT_MS`,
+          ),
+        );
+      }, migrateTimeoutMs),
+    ),
+  ]);
+}
+
 try {
-  await migrate(db, { migrationsFolder: "./drizzle" });
+  await client`SELECT 1 AS ping`;
+  console.log("[migrate] اتصلت بـ Postgres (ping OK).");
+  await raceMigrate();
   console.log("[migrate] اكتملت الترحيلات.");
 } catch (e) {
   console.error("[migrate] فشل:", e);

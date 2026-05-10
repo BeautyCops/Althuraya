@@ -41,4 +41,4 @@ EXPOSE 3000
 # خادم التشغيل: srvx يخدم طلب `/assets/*` من `dist/client` (--static)، ويجب `--dir .` حتى لا يُحسب المسار نسبياً إلى `dist/server/` (فيُصبح dist/server/dist/client ويفشل CSS/صور).
 
 # ترحيلات Drizzle ثم تشغيل SSR (المجلد drizzle و scripts من نسخة البناء).
-CMD ["/bin/sh", "-c", "node scripts/run-migrate.mjs && exec node node_modules/srvx/bin/srvx.mjs serve --prod --host 0.0.0.0 --port ${PORT:-3000} --dir . --static dist/client --entry dist/server/server.js"]
+CMD ["/bin/sh", "-c", "echo [boot] migrate && node scripts/run-migrate.mjs && echo [boot] srvx PORT=${PORT:-3000} && exec node node_modules/srvx/bin/srvx.mjs serve --prod --host 0.0.0.0 --port ${PORT:-3000} --dir . --static dist/client --entry dist/server/server.js"]
