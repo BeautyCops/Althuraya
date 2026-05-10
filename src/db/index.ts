@@ -15,7 +15,7 @@ export function getDb() {
     );
   }
   if (!instance) {
-    client = postgres(url, getPostgresJsClientOptions(10));
+    client = postgres(url, getPostgresJsClientOptions(10, url));
     instance = drizzle(client, { schema });
   }
   return instance;

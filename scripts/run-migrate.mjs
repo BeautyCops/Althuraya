@@ -2,19 +2,54 @@ import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 
-/** منطق مزامن مع `src/lib/server/pg-options.ts` */
-function postgresClientOpts(max) {
+/** يزامَن منطقيًا مع `src/lib/server/pg-options.ts` */
+function dbHostFromUrl(databaseUrl) {
+  const u = databaseUrl.trim();
+  if (!u) return null;
+  try {
+    const hostname = new URL(
+      u.replace(/^postgres(?:ql)?:/i, "http:"),
+    ).hostname.replace(/^\[|\]$/g, "");
+    return hostname || null;
+  } catch {
+    return null;
+  }
+}
+
+function isLikelyPlaintextPgHost(hostname) {
+  const h = hostname.toLowerCase();
+  return (
+    h.endsWith(".railway.internal") ||
+    h.endsWith(".internal") ||
+    h === "localhost" ||
+    h === "127.0.0.1"
+  );
+}
+
+function postgresClientOpts(max, databaseUrl) {
+  const url = databaseUrl?.trim() ?? "";
   const disable =
     process.env.DATABASE_SSL_DISABLE === "1" ||
     process.env.PGSSLMODE === "disable";
   const connectTimeout = Number(process.env.PGCONNECT_TIMEOUT ?? 25);
   const base = { max, connect_timeout: connectTimeout };
-  if (disable) return { ...base, ssl: false };
-  if (process.env.NODE_ENV !== "production") return { ...base, ssl: false };
-  return { ...base, ssl: "require" };
+  let ssl = false;
+  const host = dbHostFromUrl(url);
+  if (disable) ssl = false;
+  else if (process.env.NODE_ENV !== "production") ssl = false;
+  else if (host && isLikelyPlaintextPgHost(host)) ssl = false;
+  else ssl = { rejectUnauthorized: false };
+  return { ...base, ssl };
 }
 
 const url = process.env.DATABASE_URL?.trim();
+if (url) {
+  console.log("[migrate]", {
+    NODE_ENV: process.env.NODE_ENV,
+    dbHost: dbHostFromUrl(url) ?? "(غير محلّل)",
+  });
+}
+
 if (!url) {
   if (process.env.NODE_ENV === "production") {
     console.error("[migrate] DATABASE_URL مطلوب في الإنتاج.");
@@ -26,7 +61,7 @@ if (!url) {
   process.exit(0);
 }
 
-const client = postgres(url, postgresClientOpts(1));
+const client = postgres(url, postgresClientOpts(1, url));
 const db = drizzle(client);
 
 try {
