@@ -1,6 +1,7 @@
 node_modules
 dist
 .git
+.github
 .env
 .env.*
 **/.DS_Store
@@ -8,4 +9,6 @@ Thumbs.db
 *.log
 .wrangler
 .vite
-canva-designs/thumbnails
+
+# وزن السياق دون تأثير على البناء؛ غير مستورد من src/.
+canva-designs
