@@ -40,5 +40,6 @@ EXPOSE 3000
 # Railway يحقن PORT تلقائيًا؛ لا تضعي ENV PORT ثابتًا في الصورة.
 # خادم التشغيل: srvx يخدم طلب `/assets/*` من `dist/client` (--static)، ويجب `--dir .` حتى لا يُحسب المسار نسبياً إلى `dist/server/` (فيُصبح dist/server/dist/client ويفشل CSS/صور).
 
-# ترحيلات Drizzle ثم تشغيل SSR (المجلد drizzle و scripts من نسخة البناء).
-CMD ["/bin/sh", "-c", "set -ex; echo '[boot] migrate'; node scripts/run-migrate.mjs; echo '[boot] srvx'; exec node scripts/serve-production.mjs"]
+# الهجرات: على Railway تشغَّل عادةً عبر `deploy.preDeployCommand` في `railway.json` كي لا تمنع تشغيل الخادّم وحجب الفحص الصحّي إذا تأخّر الاتصال بـ Postgres.
+# محليًا: `npm run start` أو `npm run db:migrate` قبل التشغيل.
+CMD ["node", "scripts/serve-production.mjs"]
