@@ -59,7 +59,9 @@ if (url) {
 
 if (!url) {
   if (process.env.NODE_ENV === "production") {
-    console.error("[migrate] DATABASE_URL مطلوب في الإنتاج.");
+    console.error(
+      "[migrate] DATABASE_URL مطلوب في الإنتاج. في Railway: Variables → DATABASE_URL أو اربطي خدمة Postgres.",
+    );
     process.exit(1);
   }
   console.warn(

@@ -2,11 +2,12 @@
   "$schema": "https://railway.com/railway.schema.json",
   "build": {
     "builder": "DOCKERFILE",
-    "dockerfilePath": "docker/Dockerfile"
+    "dockerfilePath": "Dockerfile"
   },
   "deploy": {
     "restartPolicyType": "ON_FAILURE",
+    "startCommand": "/bin/sh -c \"set -ex; echo '[boot] migrate'; node scripts/run-migrate.mjs; echo '[boot] srvx'; exec node scripts/serve-production.mjs\"",
     "healthcheckPath": "/api/health",
-    "healthcheckTimeout": 180
+    "healthcheckTimeout": 300
   }
 }

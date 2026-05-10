@@ -1,5 +1,5 @@
-# اختياري (لم يعود في الجذر): بناء الصورة محليًا أو منصّة تطلب Dockerfile صريحة.
-# أمثلة: docker build -f docker/Dockerfile .
+# بناء المحلي أو Railway: Dockerfile في جذر المستودع (متطلّب بعض منصّات النشر، مثل اتساق مسار Snapshot).
+# مثال: docker build .
 #
 # glibc لتقليل أعطال الـ natives مقارنة بـ Alpine (مثل lightningcss/esbuild على musl).
 #
