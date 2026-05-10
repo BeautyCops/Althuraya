@@ -6,6 +6,9 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import process from "node:process";
 
+import { loadEnvLocal } from "./load-env-local.mjs";
+loadEnvLocal();
+
 const port = process.env.PORT || 3000;
 
 const srvxEntry = path.join(process.cwd(), "node_modules/srvx/bin/srvx.mjs");

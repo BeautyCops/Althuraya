@@ -2,6 +2,9 @@ import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 
+import { loadEnvLocal } from "./load-env-local.mjs";
+loadEnvLocal();
+
 /** يزامَن منطقيًا مع `src/lib/server/pg-options.ts` */
 function dbHostFromUrl(databaseUrl) {
   const u = databaseUrl.trim();
@@ -19,9 +22,7 @@ function dbHostFromUrl(databaseUrl) {
 function isLikelyPlaintextPgHost(hostname) {
   const h = hostname.toLowerCase();
   return (
-    h.endsWith(".railway.internal") ||
-    h === "localhost" ||
-    h === "127.0.0.1"
+    h.endsWith(".railway.internal") || h === "localhost" || h === "127.0.0.1"
   );
 }
 
@@ -70,9 +71,7 @@ if (!url) {
 const client = postgres(url, postgresClientOpts(1, url));
 const db = drizzle(client);
 
-const migrateTimeoutMs = Number(
-  process.env.MIGRATE_BOOT_TIMEOUT_MS ?? 120000,
-);
+const migrateTimeoutMs = Number(process.env.MIGRATE_BOOT_TIMEOUT_MS ?? 120000);
 
 function raceMigrate() {
   return Promise.race([

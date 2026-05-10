@@ -1,0 +1,18 @@
+# Postgres للتطوير المحلي فقط — لا يُستخدم في الإنتاج.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: althuraya-db
+    restart: unless-stopped
+    # 5433 حتى لا يتعارض مع Postgres مثبّت محلياً على 5432
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: althuraya
+    volumes:
+      - althuraya_pg_data:/var/lib/postgresql/data
+
+volumes:
+  althuraya_pg_data:
