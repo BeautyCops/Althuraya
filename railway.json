@@ -6,8 +6,8 @@
   },
   "deploy": {
     "restartPolicyType": "ON_FAILURE",
-    "startCommand": "/bin/sh -c \"echo [boot] migrate && node scripts/run-migrate.mjs && echo [boot] srvx PORT=${PORT:-3000} && exec node node_modules/srvx/bin/srvx.mjs serve --prod --host 0.0.0.0 --port ${PORT:-3000} --dir . --static dist/client --entry dist/server/server.js\"",
-    "healthcheckPath": "/api/health",
+    "startCommand": "/bin/sh -c \"set -ex; echo '[boot] migrate'; node scripts/run-migrate.mjs; echo '[boot] srvx'; exec node node_modules/srvx/bin/srvx.mjs serve --prod --host 0.0.0.0 --port ${PORT:-3000} --dir . --static dist/client --entry dist/server/server.js\"",
+    "healthcheckPath": "/health.txt",
     "healthcheckTimeout": 180
   }
 }
