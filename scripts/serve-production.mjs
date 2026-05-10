@@ -9,7 +9,9 @@ import process from "node:process";
 import { loadEnvLocal } from "./load-env-local.mjs";
 loadEnvLocal();
 
+/** معادلة مطابقة لتعليمات النشر؛ الاستماع الفعلي عبر srvx وليس Express `app.listen`. */
 const port = process.env.PORT || 3000;
+console.log(`Server running on port ${port}`);
 
 const srvxEntry = path.join(process.cwd(), "node_modules/srvx/bin/srvx.mjs");
 const args = [

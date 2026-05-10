@@ -8,6 +8,14 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 const ghPages = process.env.GH_PAGES === "true" || process.env.GH_PAGES === "1";
 
+const viteDevPortEnv = Number(process.env.PORT ?? "");
+const viteDevPort =
+  Number.isFinite(viteDevPortEnv) &&
+  viteDevPortEnv >= 1 &&
+  viteDevPortEnv <= 65535
+    ? viteDevPortEnv
+    : undefined;
+
 export default defineConfig({
   // Always disable the Cloudflare adapter — Railway runs Node.js, not a Cloudflare Worker.
   // For GitHub Pages we also don't need Cloudflare (static prerender only).
@@ -30,5 +38,10 @@ export default defineConfig({
       },
   vite: {
     base: process.env.VITE_BASE?.trim() || "/",
+    // لا منفّذًا ثابتًا: يُطبَّق PORT من البيئة عند تشغيل `vite dev` إن وُجد.
+    server: {
+      strictPort: false,
+      ...(viteDevPort !== undefined ? { port: viteDevPort } : {}),
+    },
   },
 });
