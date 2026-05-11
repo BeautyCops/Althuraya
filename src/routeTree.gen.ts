@@ -14,6 +14,7 @@ import { Route as SuccessStoriesRouteImport } from './routes/success-stories'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HelpCenterRouteImport } from './routes/help-center'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -50,6 +51,11 @@ const LoginRoute = LoginRouteImport.update({
 const HelpCenterRoute = HelpCenterRouteImport.update({
   id: '/help-center',
   path: '/help-center',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
   '/careers': typeof CareersRoute
+  '/dashboard': typeof DashboardRoute
   '/help-center': typeof HelpCenterRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
   '/careers': typeof CareersRoute
+  '/dashboard': typeof DashboardRoute
   '/help-center': typeof HelpCenterRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -159,6 +167,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
   '/careers': typeof CareersRoute
+  '/dashboard': typeof DashboardRoute
   '/help-center': typeof HelpCenterRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -180,6 +189,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/careers'
+    | '/dashboard'
     | '/help-center'
     | '/login'
     | '/privacy-policy'
@@ -199,6 +209,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/careers'
+    | '/dashboard'
     | '/help-center'
     | '/login'
     | '/privacy-policy'
@@ -218,6 +229,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/careers'
+    | '/dashboard'
     | '/help-center'
     | '/login'
     | '/privacy-policy'
@@ -238,6 +250,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   BlogRoute: typeof BlogRoute
   CareersRoute: typeof CareersRoute
+  DashboardRoute: typeof DashboardRoute
   HelpCenterRoute: typeof HelpCenterRoute
   LoginRoute: typeof LoginRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
@@ -286,6 +299,13 @@ declare module '@tanstack/react-router' {
       path: '/help-center'
       fullPath: '/help-center'
       preLoaderRoute: typeof HelpCenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -382,6 +402,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   BlogRoute: BlogRoute,
   CareersRoute: CareersRoute,
+  DashboardRoute: DashboardRoute,
   HelpCenterRoute: HelpCenterRoute,
   LoginRoute: LoginRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,

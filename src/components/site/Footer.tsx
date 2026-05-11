@@ -76,11 +76,7 @@ export function Footer() {
                 aria-label="المركز السعودي للأعمال"
                 title="business.sa"
               >
-                <img
-                  src={sbcIcon}
-                  alt=""
-                  className="h-8 w-8 sm:h-9 sm:w-9"
-                />
+                <img src={sbcIcon} alt="" className="h-8 w-8 sm:h-9 sm:w-9" />
               </a>
               <p className="text-th-cream/55 leading-relaxed">
                 <span className="text-th-cream/50">رقم السجل التجاري</span>{" "}
@@ -94,10 +90,7 @@ export function Footer() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                © 2025 شركة الثريا 440 LLC — جميع الحقوق
-                محفوظة
-              </div>
+              <div>© 2025 شركة الثريا 440 LLC — جميع الحقوق محفوظة</div>
               <div className="flex gap-5">
                 <a
                   href="/privacy-policy"

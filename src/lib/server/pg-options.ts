@@ -10,7 +10,9 @@ export function databaseUrlFromEnv(): string {
 }
 
 /** يستخرج اسم المضيف من عنوان الاتصال (يشمل postgres:// وpostgresql:// وIPv6). */
-export function postgresHostnameFromDatabaseUrl(databaseUrl: string): string | null {
+export function postgresHostnameFromDatabaseUrl(
+  databaseUrl: string,
+): string | null {
   const u = databaseUrl.trim();
   if (!u) return null;
   try {
@@ -27,9 +29,7 @@ export function postgresHostnameFromDatabaseUrl(databaseUrl: string): string | n
 function isLikelyPlaintextPgHost(hostname: string): boolean {
   const h = hostname.toLowerCase();
   return (
-    h.endsWith(".railway.internal") ||
-    h === "localhost" ||
-    h === "127.0.0.1"
+    h.endsWith(".railway.internal") || h === "localhost" || h === "127.0.0.1"
   );
 }
 
@@ -37,9 +37,10 @@ function isLikelyPlaintextPgHost(hostname: string): boolean {
 export function getPostgresJsClientOptions(
   max: number,
   databaseUrl?: string,
-): postgres.Options<{}> {
-  const url =
-    (databaseUrl !== undefined ? databaseUrl : databaseUrlFromEnv()).trim();
+): postgres.Options {
+  const url = (
+    databaseUrl !== undefined ? databaseUrl : databaseUrlFromEnv()
+  ).trim();
   const disable =
     process.env.DATABASE_SSL_DISABLE === "1" ||
     process.env.PGSSLMODE === "disable";

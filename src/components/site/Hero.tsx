@@ -57,17 +57,14 @@ export function Hero() {
                 className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2.5 sm:gap-x-8 sm:gap-y-3 text-th-cream/55 text-xs sm:text-sm animate-fade-up max-w-sm sm:max-w-none mx-auto lg:mx-0"
                 style={{ animationDelay: "0.4s" }}
               >
-                {[
-                  "٥٠ مناسبة",
-                  "١٢٠٠ ضيف",
-                  "تقييم ٤.٩ ★",
-                  "دعم ٢٤/٧",
-                ].map((t) => (
-                  <div key={t} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-th-lavender" />
-                    {t}
-                  </div>
-                ))}
+                {["٥٠ مناسبة", "١٢٠٠ ضيف", "تقييم ٤.٩ ★", "دعم ٢٤/٧"].map(
+                  (t) => (
+                    <div key={t} className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-th-lavender" />
+                      {t}
+                    </div>
+                  ),
+                )}
               </div>
             </div>
           </div>

@@ -26,7 +26,7 @@ function AccountPage() {
         if (!res.ok) {
           await navigate({
             to: "/login",
-            search: { redirect: "/account" },
+            search: { redirect: "/dashboard" },
             replace: true,
           });
           return;
@@ -35,7 +35,7 @@ function AccountPage() {
         if (!data.user) {
           await navigate({
             to: "/login",
-            search: { redirect: "/account" },
+            search: { redirect: "/dashboard" },
             replace: true,
           });
           return;
@@ -45,7 +45,7 @@ function AccountPage() {
         if (!cancelled) {
           await navigate({
             to: "/login",
-            search: { redirect: "/account" },
+            search: { redirect: "/dashboard" },
             replace: true,
           });
         }
@@ -79,17 +79,25 @@ function AccountPage() {
     >
       <div className="w-full max-w-md rounded-2xl border border-th-lavender/15 bg-th-deep/60 backdrop-blur-md p-6 md:p-8 shadow-card-soft text-center">
         <h1 className="text-2xl font-bold text-th-cream mb-2">حسابي</h1>
-        <p className="text-sm text-th-lavender/80 mb-6 break-all">{user.email}</p>
+        <p className="text-sm text-th-lavender/80 mb-6 break-all">
+          {user.email}
+        </p>
         <p className="text-sm text-th-cream/80 mb-6 leading-relaxed">
           {user.role === "admin"
             ? "لديك صلاحية مشرف — يمكنك فتح لوحة الإدارة."
             : "هذه مساحة حسابك. لوحة الإدارة الكاملة مخصّصة للمشرفين فقط؛ لأي طلب صلاحية تواصلي مع الدعم."}
         </p>
         <div className="flex flex-col gap-3">
+          <Link
+            to="/dashboard"
+            className="block w-full rounded-xl bg-gradient-primary py-3 font-semibold text-th-cream text-center"
+          >
+            لوحة العميل (الداشبورد)
+          </Link>
           {user.role === "admin" && (
             <Link
               to="/admin"
-              className="block w-full rounded-xl bg-gradient-primary py-3 font-semibold text-th-cream text-center"
+              className="block w-full rounded-xl border border-th-lavender/25 py-3 font-semibold text-th-cream text-center hover:bg-th-royal/20 transition-colors"
             >
               فتح لوحة الإدارة
             </Link>

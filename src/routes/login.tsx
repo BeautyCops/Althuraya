@@ -9,7 +9,8 @@ export const Route = createFileRoute("/login")({
       typeof search.redirect === "string" && search.redirect.startsWith("/")
         ? search.redirect
         : DEFAULT_USER_REDIRECT,
-    mode: search.mode === "register" ? ("register" as const) : ("login" as const),
+    mode:
+      search.mode === "register" ? ("register" as const) : ("login" as const),
   }),
   head: () => ({
     meta: [
@@ -67,6 +68,9 @@ function LoginPage() {
       const role = me?.user?.role;
       let target = redirect;
       if (target === "/admin" && role !== "admin") {
+        target = DEFAULT_USER_REDIRECT;
+      }
+      if (target === "/account") {
         target = DEFAULT_USER_REDIRECT;
       }
       window.location.assign(target);

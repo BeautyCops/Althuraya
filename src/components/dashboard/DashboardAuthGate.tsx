@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
-type GateState = "loading" | "ok" | "redirecting";
+import {
+  DashboardUserProvider,
+  type DashboardUser,
+} from "./dashboard-user-context";
 
-export function AdminAuthGate({ children }: { children: React.ReactNode }) {
+type GateState = "loading" | "ready" | "redirecting";
+
+export function DashboardAuthGate({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const [state, setState] = useState<GateState>("loading");
+  const [user, setUser] = useState<DashboardUser | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -17,26 +23,29 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
           setState("redirecting");
           await navigate({
             to: "/login",
-            search: { redirect: "/admin" },
+            search: { redirect: "/dashboard", mode: "login" },
             replace: true,
           });
           return;
         }
-        const data = (await res.json()) as {
-          user?: { role?: string };
-        };
-        if (data.user?.role !== "admin") {
+        const data = (await res.json()) as { user?: DashboardUser };
+        if (!data.user) {
           setState("redirecting");
-          await navigate({ to: "/dashboard", replace: true });
+          await navigate({
+            to: "/login",
+            search: { redirect: "/dashboard", mode: "login" },
+            replace: true,
+          });
           return;
         }
-        setState("ok");
+        setUser(data.user);
+        setState("ready");
       } catch {
         if (!cancelled) {
           setState("redirecting");
           await navigate({
             to: "/login",
-            search: { redirect: "/admin" },
+            search: { redirect: "/dashboard", mode: "login" },
             replace: true,
           });
         }
@@ -53,14 +62,14 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
         className="min-h-screen flex items-center justify-center bg-gradient-hero text-th-cream"
         dir="rtl"
       >
-        <p className="text-sm text-th-lavender/80">جاري التحقق من الجلسة…</p>
+        <p className="text-sm text-th-lavender/80">جاري تحميل لوحة العميل…</p>
       </div>
     );
   }
 
-  if (state === "redirecting") {
+  if (state === "redirecting" || !user) {
     return null;
   }
 
-  return <>{children}</>;
+  return <DashboardUserProvider user={user}>{children}</DashboardUserProvider>;
 }
