@@ -9,6 +9,8 @@ import {
 import favicon from "../assets/chandelier.png?url";
 import appCss from "../styles.css?url";
 
+import { absoluteSharePreviewImage } from "@/lib/share-preview-image";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -42,7 +44,19 @@ export const Route = createRootRoute({
       { name: "description", content: "منصة الدعوات الإلكترونية الذكية" },
       { name: "author", content: "Althuraya" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      {
+        property: "og:image",
+        content: absoluteSharePreviewImage(),
+      },
+      {
+        property: "og:image:alt",
+        content: "الثريا — أيقونة الثريا",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:image",
+        content: absoluteSharePreviewImage(),
+      },
     ],
     links: [
       { rel: "icon", href: favicon, type: "image/png" },

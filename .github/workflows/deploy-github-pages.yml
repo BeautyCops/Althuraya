@@ -45,6 +45,8 @@ jobs:
         env:
           GH_PAGES: "1"
           NODE_OPTIONS: --max-old-space-size=6144
+          # معاينة الرابط الخارجي (og:image) — يطابق CNAME النطاق المخصص عند الحاجة غيّريه.
+          VITE_SITE_URL: https://althuraya.store
         run: npm run build
 
       # v4 يرمّن الأرشيف دون الملفات النقطية — ننسخ .assetsignore باسم غير نقطي إن وُجد

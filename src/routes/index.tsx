@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+
+import { absoluteSharePreviewImage } from "@/lib/share-preview-image";
 import { BackgroundField } from "@/components/site/BackgroundField";
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
@@ -30,7 +32,19 @@ export const Route = createFileRoute("/")({
           "دعواتك تستحق لمسة فاخرة — منصة سعودية متكاملة للدعوات الذكية.",
       },
       { property: "og:type", content: "website" },
+      {
+        property: "og:image",
+        content: absoluteSharePreviewImage(),
+      },
+      {
+        property: "og:image:alt",
+        content: "الثريا — منصة الدعوات الإلكترونية",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:image",
+        content: absoluteSharePreviewImage(),
+      },
     ],
   }),
   component: Index,
